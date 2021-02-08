@@ -1,0 +1,1 @@
+#This is a Discord Bot used for CS:GO Map Vetos for Asmita 2021
