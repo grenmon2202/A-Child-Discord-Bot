@@ -20,7 +20,7 @@ for(const file of commandFiles){
     client.commands.set(command.name, command);
 }
 
-client.on('message', message =>{
+client.on('message', async message =>{
     if(!message.content.startsWith(prefix) || message.author.bot)
     return;
 
@@ -28,7 +28,11 @@ client.on('message', message =>{
     const command = args.shift().toLowerCase();
 
     if(command === "pants"){
-        client.commands.get('pants').execute(message, args);
+        client.commands.get('pants').execute(message, args, Discord);
+    } else if (command === "map-veto"){
+        client.commands.get('map-veto').execute(message, args, Discord);
+    } else if (command === "test"){
+        client.commands.get('test').execute(message, args, Discord);
     }
 });
 
