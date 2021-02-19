@@ -29,5 +29,5 @@ After this initial setup, you can freely make changes to the source code and tes
  - Discord.js
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExNjUyOTQwNjAsMTgzODkwMjgxOF19
+eyJoaXN0b3J5IjpbLTExNjUyOTQwNjBdfQ==
 -->
