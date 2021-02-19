@@ -1,6 +1,6 @@
 module.exports = {
     name:'pants',
-    description: 'Use this to hear a compliment about your pants, or compliment someone else\'s pants',
+    description: 'Hear a compliment about your pants, or compliment someone else\'s pants',
     active: true,
     instructions: '~pants / ~pants <user1> / ~pants <user1> <user2>',
     execute(message, args, Discord){

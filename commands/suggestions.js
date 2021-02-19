@@ -1,6 +1,6 @@
 module.exports = {
     name:'suggestions',
-    description: 'Use this if you want to send us feedback regarding the bot!',
+    description: 'Send us feedback regarding the bot!',
     active: true,
     instructions: '~suggestions',
     execute(message, args, Discord){

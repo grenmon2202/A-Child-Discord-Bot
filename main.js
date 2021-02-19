@@ -40,6 +40,8 @@ client.on('message', async message =>{
         client.commands.get('suggestions').execute(message, args, Discord);
     } else if (command === "help"&&client.commands.get('help').active){
         client.commands.get('help').execute(message, args, Discord, client.commands);
+    } else if ((command === "source-code"||command==="sc")&&client.commands.get('help').active){
+        client.commands.get('source-code').execute(message, args, Discord, client.commands);
     }
     /*
     To do
