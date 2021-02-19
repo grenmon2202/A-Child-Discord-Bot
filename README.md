@@ -18,7 +18,14 @@ To test the code using your own bot, you have to create a token.json folder in t
 
     {
 	    "token": "<Your Bot's Token Here>"
+	}
+
+After this initial setup, you can freely make changes to the source code and test them out using your own bot.
+
+## Built With
+
+ - Nod
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTMzNjE3NzA2N119
+eyJoaXN0b3J5IjpbLTE3MjU0NTcxMTddfQ==
 -->
