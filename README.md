@@ -12,8 +12,9 @@ To get a copy of the project on your local computer follow these instructions.
 ### Installation
 First make sure that you make a copy of the project on your local computer.
 
-    enter code here
+    git clone https://github.com/grenmon2202/A-Child-Discord-Bot.git
+
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwMzg1NTE2ODBdfQ==
+eyJoaXN0b3J5IjpbMTIyMTQ1MDY5Ml19
 -->
