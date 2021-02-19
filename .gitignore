@@ -1,2 +1,6 @@
 token.json
-./attachments/
+package.json
+package-lock.json
+/attachments
+/node_modules
+/.vscode
