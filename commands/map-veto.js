@@ -90,6 +90,7 @@ let compMapPool = [
 module.exports = {
     name:'map-veto',
     description: 'Use this to start a CS:GO map veto',
+    active: false,
     async execute(message, args, Discord){
         //console.log("Someone used the map-veto command");
         

@@ -1,10 +1,13 @@
 const Discord = require('discord.js');
+const token = require('./token.json');
 
 const client = new Discord.Client();
 
-client.once('ready', () => {
+client.on("ready", () =>{
     console.log("I Am Online and Ready To Shoot Some Noobs!");
-});
+    console.log(`Logged in as ${client.user.tag}!`);
+    client.user.setActivity("~help");
+ });
 
 const prefix = '~';
 
@@ -27,13 +30,22 @@ client.on('message', async message =>{
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
 
-    if(command === "pants"){
+    //console.log(client.commands.get('map-veto').active);
+
+    if(command === "pants"&&client.commands.get('pants').active){
         client.commands.get('pants').execute(message, args, Discord);
-    } else if (command === "map-veto"){
+    } else if (command === "map-veto"&&client.commands.get('map-veto').active){
         client.commands.get('map-veto').execute(message, args, Discord);
-    } else if (command === "test"){
-        client.commands.get('test').execute(message, args, Discord);
+    } else if (command === "suggestions"&&client.commands.get('suggestions').active){
+        client.commands.get('suggestions').execute(message, args, Discord);
+    } else if (command === "help"&&client.commands.get('help').active){
+        client.commands.get('help').execute(message, args, Discord, client.commands);
     }
+    /*
+    To do
+    furry command
+    movie suggestions comnmand
+    */
 });
 
-client.login("ODA4Mjg4OTgyMzEwOTc3NTU2.YCEXxg.LjKNgR0PvWsgv59vWQVTeatoDn0");
+client.login(token.token);
