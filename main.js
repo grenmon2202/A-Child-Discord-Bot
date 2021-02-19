@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const token = require('./token.json');
+const jimp = require('jimp');
 
 const client = new Discord.Client();
 
@@ -40,8 +41,10 @@ client.on('message', async message =>{
         client.commands.get('suggestions').execute(message, args, Discord);
     } else if (command === "help"&&client.commands.get('help').active){
         client.commands.get('help').execute(message, args, Discord, client.commands);
-    } else if ((command === "source-code"||command==="sc")&&client.commands.get('help').active){
+    } else if ((command === "source-code"||command==="sc")&&client.commands.get('source-code').active){
         client.commands.get('source-code').execute(message, args, Discord, client.commands);
+    } else if (command === "furry"&&client.commands.get('furry').active){
+        client.commands.get('furry').execute(message, args, Discord, jimp);
     }
     /*
     To do

@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/grenmon2202/CS-GO-Veto-Bot-for-Discord#readme",
   "dependencies": {
-    "discord.js": "^12.5.1"
+    "discord.js": "^12.5.1",
+    "jimp": "^0.16.1"
   }
 }
