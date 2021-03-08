@@ -6,6 +6,7 @@ module.exports = {
     active: true,
     instructions: '~furry, ~furry <user>',
     async execute(message, args, Discord, jimp){
+        console.log('Furry Command Used KEKW');
         var furryTest;
         if(message.mentions.users.first()!=undefined){
             furryTest = message.mentions.users.first();

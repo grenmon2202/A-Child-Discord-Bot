@@ -8,6 +8,7 @@ To get a copy of the project on your local computer follow these instructions.
 
  - Node.js
  - Discord.js
+ - MongoDB
 
 ### Installation
 First make sure that you make a copy of the project on your local computer.
@@ -27,6 +28,7 @@ After this initial setup, you can freely make changes to the source code and tes
  - Javascript
  - Node.js
  - Discord.js
+ - MongoDB
 
 <!--stackedit_data:
 eyJoaXN0b3J5IjpbLTExNjUyOTQwNjBdfQ==

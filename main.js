@@ -1,18 +1,28 @@
 const Discord = require('discord.js');
-const token = require('./token.json');
+const token = require('./config.json');
 const jimp = require('jimp');
+const mongo = require('./mongo');
 
 const client = new Discord.Client();
 
-client.on("ready", () =>{
+client.on("ready", async() =>{
     console.log("I Am Online and Ready To Shoot Some Noobs!");
     console.log(`Logged in as ${client.user.tag}!`);
     client.user.setActivity("~help");
+    await mongo().then(mongoose => {
+        try {
+            console.log('Connected to mongo');
+        } finally{
+            mongoose.connection.close();
+            console.log('Disconnected from mongo');
+        }
+    })
  });
 
 const prefix = '~';
 
 const fs = require('fs');
+const { Mongoose } = require('mongoose');
 
 client.commands = new Discord.Collection();
 
@@ -45,6 +55,16 @@ client.on('message', async message =>{
         client.commands.get('source-code').execute(message, args, Discord, client.commands);
     } else if (command === "furry"&&client.commands.get('furry').active){
         client.commands.get('furry').execute(message, args, Discord, jimp);
+    } else if (command === "setwelcome"&&client.commands.get('setwelcome').active){
+        client.commands.get('setwelcome').execute(message, args, Discord, client);
+    } else if (command === "kick"&&client.commands.get('kick').active){
+        client.commands.get('kick').execute(message, args, Discord, client);
+    } else if (command === "ban"&&client.commands.get('ban').active){
+        client.commands.get('ban').execute(message, args, Discord, client);
+    } else if (command === "server-info"&&client.commands.get('server-info').active){
+        client.commands.get('server-info').execute(message, args, Discord, client);
+    } else if (command === "user-info"&&client.commands.get('user-info').active){
+        client.commands.get('user-info').execute(message, args, Discord, client);
     }
     /*
     To do
