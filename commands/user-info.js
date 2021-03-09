@@ -1,9 +1,11 @@
+const Discord = require('discord.js')
+
 module.exports = {
-    name:'user-info',
-    description: 'List the details of the user',
-    active: true,
-    instructions: '~user-info, ~user-info <user>',
-    execute(message, args, Discord){
+    commands: ['user-info', 'uf'],
+    arguments_expected: '<user>',
+    min_args: 0,
+    max_args: 1,
+    callback: (message, arguments, text) => {
         let user = message.mentions.users.first();
         if(!user)
         user = message.author;

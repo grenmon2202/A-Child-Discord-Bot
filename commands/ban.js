@@ -1,17 +1,17 @@
+const Discord = require('discord.js')
+
 module.exports = {
-    name:'ban',
-    description: 'Ban a member from your server',
-    active: true,
-    instructions: '~ban <user1> <(optional) reason>',
-    execute(message, args, Discord){
+    commands: ['ban'],
+    arguments_expected: '<user>',
+    permission_err: 'You do not have permission to use this command :unamused:',
+    min_args: 1,
+    permissions: ['ADMINISTRATOR', 'BAN_MEMBERS'],
+    roles: [],
+    callback: (message, arguments, text) => {
         const member = message.mentions.users.first();
         const author = message.guild.member(message.author);
-        if(!author.hasPermission('ADMINISTRATOR') && !author.hasPermission('BAN_MEMBERS')){
-            message.channel.send('You do not have permission to use this command :unamused:.');
-            return;
-        }
-        let text = message.content;
-        let split = text.split(' ');
+        let txt = message.content;
+        let split = txt.split(' ');
         split.shift();
         split.shift();
         let reason = null;
@@ -21,6 +21,10 @@ module.exports = {
         reason = "Unspecified";
         if(member){
             const banMember = message.guild.members.cache.get(member.id);
+            if(banMember.hasPermission('ADMINISTRATOR')){
+                message.channel.send('Cannot ban an admin :dizzy_face:');
+                return;
+            }
             let channelEmbed = new Discord.MessageEmbed()
                 .setColor('RED')
                 .setAuthor(`${member.tag} has been banned`, member.avatarURL())

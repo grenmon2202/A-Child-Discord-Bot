@@ -1,9 +1,9 @@
+const Discord = require('discord.js')
+
 module.exports = {
-    name:'suggestions',
-    description: 'Send us feedback regarding the bot!',
-    active: true,
-    instructions: '~suggestions',
-    execute(message, args, Discord){
+    commands: ['suggestions'],
+    max_args: 0,
+    callback: (message, arguments, text) => {
         const link = 'https://forms.gle/vob5o8CW6t5JZTXa9';
         let suggestionsEmbed = new Discord.MessageEmbed()
             .setColor('BLUE')

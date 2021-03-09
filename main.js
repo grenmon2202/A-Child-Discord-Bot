@@ -1,7 +1,8 @@
-const Discord = require('discord.js');
-const token = require('./config.json');
-const jimp = require('jimp');
-const mongo = require('./mongo');
+const Discord = require('discord.js')
+const config = require('./config.json')
+const mongo = require('./mongo')
+const path = require('path')
+const fs = require('fs')
 
 const client = new Discord.Client();
 
@@ -14,63 +15,27 @@ client.on("ready", async() =>{
             console.log('Connected to mongo');
         } finally{
             mongoose.connection.close();
-            console.log('Disconnected from mongo');
         }
     })
- });
 
-const prefix = '~';
+    const handler = 'command-handler.js'
+    const handler_imp = require('./commands/command-handler.js')
 
-const fs = require('fs');
-const { Mongoose } = require('mongoose');
+    const command_reader = dir => {
+        const files = fs.readdirSync(path.join(__dirname, dir))
 
-client.commands = new Discord.Collection();
-
-const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
-
-for(const file of commandFiles){
-    const command = require(`./commands/${file}`);
-
-    client.commands.set(command.name, command);
-}
-
-client.on('message', async message =>{
-    if(!message.content.startsWith(prefix) || message.author.bot)
-    return;
-
-    const args = message.content.slice(prefix.length).split(/ +/);
-    const command = args.shift().toLowerCase();
-
-    //console.log(client.commands.get('map-veto').active);
-
-    if(command === "pants"&&client.commands.get('pants').active){
-        client.commands.get('pants').execute(message, args, Discord);
-    } else if (command === "map-veto"&&client.commands.get('map-veto').active){
-        client.commands.get('map-veto').execute(message, args, Discord);
-    } else if (command === "suggestions"&&client.commands.get('suggestions').active){
-        client.commands.get('suggestions').execute(message, args, Discord);
-    } else if (command === "help"&&client.commands.get('help').active){
-        client.commands.get('help').execute(message, args, Discord, client.commands);
-    } else if ((command === "source-code"||command==="sc")&&client.commands.get('source-code').active){
-        client.commands.get('source-code').execute(message, args, Discord, client.commands);
-    } else if (command === "furry"&&client.commands.get('furry').active){
-        client.commands.get('furry').execute(message, args, Discord, jimp);
-    } else if (command === "setwelcome"&&client.commands.get('setwelcome').active){
-        client.commands.get('setwelcome').execute(message, args, Discord, client);
-    } else if (command === "kick"&&client.commands.get('kick').active){
-        client.commands.get('kick').execute(message, args, Discord, client);
-    } else if (command === "ban"&&client.commands.get('ban').active){
-        client.commands.get('ban').execute(message, args, Discord, client);
-    } else if (command === "server-info"&&client.commands.get('server-info').active){
-        client.commands.get('server-info').execute(message, args, Discord, client);
-    } else if (command === "user-info"&&client.commands.get('user-info').active){
-        client.commands.get('user-info').execute(message, args, Discord, client);
+        for (const file of files){
+            const stat = fs.lstatSync(path.join(__dirname, dir, file))
+            if(stat.isDirectory()){
+                command_reader(path.join(dir, file))
+            } else if(file !== handler) {
+                const option = require(path.join(__dirname, dir, file))
+                handler_imp(client, option)
+            }
+        }
     }
-    /*
-    To do
-    furry command
-    movie suggestions comnmand
-    */
-});
 
-client.login(token.token);
+    command_reader('commands')
+ });    
+
+client.login(config.token);

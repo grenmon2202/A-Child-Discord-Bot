@@ -1,9 +1,9 @@
+const Discord = require('discord.js')
+
 module.exports = {
-    name:'source-code',
-    description: 'Provides the link to the GitHub repository for the bot\'s source code',
-    active: true,
-    instructions: '~source-code, ~sc',
-    execute(message, args, Discord){
+    commands: ['source-code', 'sc'],
+    max_args: 0,
+    callback: (message, arguments, text) => {
         let sourceCodeEmbed = new Discord.MessageEmbed()
             .setColor('PINK')
             .setTitle('A Child\'s Source Code')

@@ -1,14 +1,15 @@
+const Discord = require('discord.js')
+
 module.exports = {
-    name:'pants',
-    description: 'Hear a compliment about your pants, or compliment someone else\'s pants',
-    active: true,
-    instructions: '~pants, ~pants <user1>, ~pants <user1> <user2>',
-    execute(message, args, Discord){
-        //console.log(args);
-        if(!args[0]){
+    commands: ['pants'],
+    arguments_expected: '<user1> <user2>',
+    min_args: 0,
+    max_args: 2,
+    callback: (message, arguments, text) => {
+        if(!arguments[0]){
             message.reply(`nice pants bro :flushed:`);
         }
-        else if(!args[1]){
+        else if(!arguments[1]){
             let author = message.author.id;
             let member = message.guild.member(message.mentions.users.first());
             message.channel.send(`${member.user}, <@${author}> thinks you have nice pants :flushed:`);

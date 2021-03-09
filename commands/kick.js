@@ -1,17 +1,17 @@
+const Discord = require('discord.js')
+
 module.exports = {
-    name:'kick',
-    description: 'Kick a member from your server',
-    active: true,
-    instructions: '~kick <user1> <(optional) reason>',
-    execute(message, args, Discord){
+    commands: ['kick'],
+    arguments_expected: '<user>',
+    permission_err: 'You do not have permission to use this command :unamused:',
+    min_args: 1,
+    permissions: ['ADMINISTRATOR', 'KICK_MEMBERS'],
+    callback: (message, arguments, text) => {
         const member = message.mentions.users.first();
+        
         const author = message.guild.member(message.author);
-        if(!author.hasPermission('ADMINISTRATOR')&& !author.hasPermission('KICK_MEMBERS')){
-            message.channel.send('You do not have permission to use this command :unamused:.');
-            return;
-        }
-        let text = message.content;
-        let split = text.split(' ');
+        let txt = message.content;
+        let split = txt.split(' ');
         split.shift();
         split.shift();
         let reason = null;
@@ -21,6 +21,10 @@ module.exports = {
         reason = "Unspecified";
         if(member){
             const kickMember = message.guild.members.cache.get(member.id);
+            if(kickMember.hasPermission('ADMINISTRATOR')){
+                message.channel.send('Cannot kick an admin :dizzy_face:');
+                return;
+            }
             let channelEmbed = new Discord.MessageEmbed()
                 .setColor('RED')
                 .setAuthor(`${member.tag} has been kicked`, member.avatarURL())
