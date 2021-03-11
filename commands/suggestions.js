@@ -3,6 +3,7 @@ const Discord = require('discord.js')
 module.exports = {
     commands: ['suggestions'],
     max_args: 0,
+    description:'Send us your feedback!',
     callback: (message, arguments, text) => {
         const link = 'https://forms.gle/vob5o8CW6t5JZTXa9';
         let suggestionsEmbed = new Discord.MessageEmbed()

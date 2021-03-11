@@ -6,6 +6,7 @@ module.exports = {
     permission_err: 'You do not have permission to use this command :unamused:',
     min_args: 1,
     permissions: ['ADMINISTRATOR', 'KICK_MEMBERS'],
+    description:'Kick a member from your server',
     callback: (message, arguments, text) => {
         const member = message.mentions.users.first();
         

@@ -7,6 +7,7 @@ module.exports = {
     arguments_expected: '<user>',
     min_args: 0,
     max_args: 1,
+    description: 'Find out whether or not your friend is actually a sick furry',
     callback: (message, arguments, text) => {
         furry_calc(message);
     }

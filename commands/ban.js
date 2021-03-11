@@ -7,6 +7,7 @@ module.exports = {
     min_args: 1,
     permissions: ['ADMINISTRATOR', 'BAN_MEMBERS'],
     roles: [],
+    description: 'Ban a member from your server',
     callback: (message, arguments, text) => {
         const member = message.mentions.users.first();
         const author = message.guild.member(message.author);

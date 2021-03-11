@@ -5,6 +5,7 @@ module.exports = {
     arguments_expected: '<user1> <user2>',
     min_args: 0,
     max_args: 2,
+    description: 'Hear a compliment about your pants, or compliment someone else\'s pants', 
     callback: (message, arguments, text) => {
         if(!arguments[0]){
             message.reply(`nice pants bro :flushed:`);

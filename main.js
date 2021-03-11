@@ -3,6 +3,7 @@ const config = require('./config.json')
 const mongo = require('./mongo')
 const path = require('path')
 const fs = require('fs')
+const command_loader = require('./commands/command-loader')
 
 const client = new Discord.Client();
 
@@ -17,25 +18,7 @@ client.on("ready", async() =>{
             mongoose.connection.close();
         }
     })
-
-    const handler = 'command-handler.js'
-    const handler_imp = require('./commands/command-handler.js')
-
-    const command_reader = dir => {
-        const files = fs.readdirSync(path.join(__dirname, dir))
-
-        for (const file of files){
-            const stat = fs.lstatSync(path.join(__dirname, dir, file))
-            if(stat.isDirectory()){
-                command_reader(path.join(dir, file))
-            } else if(file !== handler) {
-                const option = require(path.join(__dirname, dir, file))
-                handler_imp(client, option)
-            }
-        }
-    }
-
-    command_reader('commands')
- });    
+    command_loader(client)
+ })
 
 client.login(config.token);

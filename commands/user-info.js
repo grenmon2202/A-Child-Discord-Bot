@@ -5,6 +5,7 @@ module.exports = {
     arguments_expected: '<user>',
     min_args: 0,
     max_args: 1,
+    description:'List the details of the user',
     callback: (message, arguments, text) => {
         let user = message.mentions.users.first();
         if(!user)

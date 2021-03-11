@@ -3,6 +3,7 @@ const Discord = require('discord.js')
 module.exports = {
     commands: ['server-info', 'sf'],
     max_args: 0,
+    description:'List the details of the server',
     callback: (message, arguments, text) => {
         const { guild } = message;
         const { name, memberCount, createdAt,  id, owner, premiumSubscriptionCount, premiumTier, region, channels, roles } = guild;
