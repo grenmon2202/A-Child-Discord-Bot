@@ -16,7 +16,7 @@ First make sure that you make a copy of the project on your local computer.
 
     git clone https://github.com/grenmon2202/A-Child-Discord-Bot.git
 
-To test the code using your own bot, you have to create a token.json file in the root directory with the following piece of code:
+To test the code using your own bot, you have to create a config.json file in the root directory with the following piece of code:
 
     {
 	    "token": "<Your Bot's Token Here>"

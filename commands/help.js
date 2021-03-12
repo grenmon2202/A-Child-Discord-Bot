@@ -14,6 +14,8 @@ module.exports = {
             .setDescription ('Here is a list of all the commands you can currently give me!');
         for (command of command_list){
             var field_part1 = command.commands.join(', ')
+            if (command.arguments_expected!=undefined)
+                field_part1=field_part1+' '+ command.arguments_expected
             helpEmbed.addField(`${prefix}${field_part1}`, command.description);
         }
         message.channel.send(helpEmbed);

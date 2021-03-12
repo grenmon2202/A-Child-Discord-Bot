@@ -1,4 +1,7 @@
 const Discord = require('discord.js')
+const { Mongoose } = require('mongoose');
+const mongo = require('../mongo')
+const schema = require('../schemas/warning-schema')
 
 module.exports = {
     commands: ['user-info', 'uf'],
@@ -6,30 +9,45 @@ module.exports = {
     min_args: 0,
     max_args: 1,
     description:'List the details of the user',
-    callback: (message, arguments, text) => {
+    callback: async (message, arguments, text) => {
         let user = message.mentions.users.first();
         if(!user)
         user = message.author;
+        const user_id= user.id 
+        const guild_id=message.guild.id
         //console.log(user.username);
         const member = message.guild.member(user);
         const { displayName, joinedAt, lastMessage, permissions, premiumSince, roles } = member;
         const { bot, createdAt, tag } = user;
+        var is_bot = 'Nope'
+        if (bot)
+        is_bot='Yes :robot:'
         //console.log(lastMessage);
         //console.log(displayName, joinedAt, createdAt, lastMessage, permissions.toArray(), premiumSince, bot, createdAt, tag);
         let roleArr = [];
-        var messageSent;
-        if (lastMessage){
-            if(lastMessage.content=='')
-            messageSent="~NA~";
-            else
-            messageSent=lastMessage.content;
-        }
-        else
-        messageSent="~NA~";
         for(role of roles._roles){
             if(role[1].name!='@everyone')
             roleArr.push(role[1].name);
         }
+        var number_of_warnings
+        await mongo().then (async mongoose => {
+            try {
+                const warnings = await schema.findOne(
+                    {
+                        user_id,
+                        guild_id
+                    }
+                )
+                if (!warnings){
+                    number_of_warnings=0
+                }
+                else{
+                    number_of_warnings=warnings.reason.length
+                }
+            } finally{
+                mongoose.connection.close()
+            }
+        })
         let infoEmbed = new Discord.MessageEmbed()
             .setColor('RANDOM')
             .setThumbnail(user.avatarURL())
@@ -52,12 +70,12 @@ module.exports = {
                 },
                 {
                     name: 'Is Bot?',
-                    value: bot,
+                    value: is_bot,
                     inline: true,
                 },
                 {
-                    name: 'Last Message in Server',
-                    value: messageSent,
+                    name: 'Number of Warnings',
+                    value: number_of_warnings,
                     inline: true,
                 },
                 {
