@@ -33,11 +33,11 @@ module.exports = {
                         .setColor('RED')
                         .setThumbnail(member.avatarURL())
                         .setTitle(`${member.tag}'s warnings:`)
-                    let i = 1
+                    let ws = []
                     for (const warning of warnings.reason){
-                        embed.addField(`${i}`, `${warning}`)
-                        i+=1
+                        ws.push(`${warning}`)
                     }
+                    embed.setDescription(ws.join('\n'))
                     message.channel.send(embed)
                 }
             } finally{

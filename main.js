@@ -4,6 +4,7 @@ const mongo = require('./mongo')
 const path = require('path')
 const fs = require('fs')
 const command_loader = require('./commands/command-loader')
+const bos_event = require('./events/bos-event')
 
 const client = new Discord.Client();
 
@@ -19,6 +20,7 @@ client.on("ready", async() =>{
         }
     })
     command_loader(client)
+    bos_event(client)
  })
 
 client.login(config.token);

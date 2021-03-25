@@ -1,6 +1,6 @@
-const { GuildTemplate } = require("discord.js")
 const Discord = require('discord.js')
 const jimp = require('jimp')
+const random_command = require('./random-number-commands')
 
 module.exports = {
     commands: ['furry'],
@@ -14,22 +14,20 @@ module.exports = {
 }
 
 async function furry_calc(message){
-    var furryTest;
     if(message.mentions.users.first()!=undefined){
         furryTest = message.mentions.users.first();
     }
     else{
         furryTest=message.author;
     }
-    let chance = Math.floor(Math.random()*101);
-    
-    let furryEmbed = new Discord.MessageEmbed()
-        .setTitle('Furry Calculator')
-        .setDescription((`${furryTest.username} is ${chance}% furry`))
+    const chance = random_command.calc_info(message, 'Furry', true)
 
     let isFurry = chance<50 ? false:true;
     
     if (isFurry){
+        message.channel.send(':rotating_light::warning:Furry Alert:warning::rotating_light:');
+        message.channel.send(':rotating_light::warning:Furry Alert:warning::rotating_light:');
+        message.channel.send(':rotating_light::warning:Furry Alert:warning::rotating_light:');
         let avtURL = furryTest.avatarURL({format: "png", dynamic: false, size: 1024});
         let overlay = "https://i.imgur.com/7Z2wKtc.png";
         var jimps = [];
@@ -42,16 +40,6 @@ async function furry_calc(message){
             data[0].composite(data[1], 0, 0)
             data[0].write("./attachments/furryHuman.png")
         })
-        message.channel.send(':rotating_light::warning:Furry Alert:warning::rotating_light:');
-        message.channel.send(':rotating_light::warning:Furry Alert:warning::rotating_light:');
-        message.channel.send(':rotating_light::warning:Furry Alert:warning::rotating_light:');
-        furryEmbed.setColor('RED');
-        message.channel.send(furryEmbed);
         message.channel.send(`${furryTest.username} imagine being a furry, man :nauseated_face:`,{files: ["./attachments/furryHuman.png"]});
-    }
-
-    else{
-        furryEmbed.setColor('GREEN');
-        message.channel.send(furryEmbed);
     }
 }
